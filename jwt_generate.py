@@ -2,7 +2,7 @@
 '''
 Usage: 
     python3 jwt_get_py -H '{"typ"{"typ":"JWT","alg":"HS256","kid":"||id"}' -P '{"user":null}'
-    python3 jwt_get_py -H '{"typ"{"typ":"JWT","alg":"HS256","kid":"||id"}' -P '{"user":null} -sk pentesterlab'
+    python3 jwt_get_py -H '{"typ"{"typ":"JWT","alg":"HS256","kid":"||id"}' -P '{"user":null} -s pentesterlab'
 '''
 import argparse
 import base64
@@ -10,9 +10,9 @@ import hashlib
 import hmac
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-H', '--header', help='jwt raw header')
-parser.add_argument('-P', '--payload', help='jwt raw payload')
-parser.add_argument('-sk', '--secret_key', help='secret key')
+parser.add_argument('-H', '--header', help='JWT Raw Header')
+parser.add_argument('-P', '--payload', help='JWT Raw Payload')
+parser.add_argument('-s', '--secret', help='Secret')
 args = parser.parse_args()
 
 if not (args.header or args.payload):
@@ -21,7 +21,7 @@ if not (args.header or args.payload):
 
 header = args.header
 payload = args.payload
-secret_key = args.secret_key
+secret_key = args.secret
 
 header_encoded = base64.urlsafe_b64encode(header.encode()).decode('utf-8').replace("=", "")
 payload_encoded = base64.urlsafe_b64encode(payload.encode()).decode('utf-8').replace("=", "")
